@@ -23,10 +23,8 @@ function slideshow_post_type() {
 		'label'             => __( 'slideshow', 'bsd' ),
 		'labels'            => $labels,
 		'supports'          => [
+			'custom-fields',
 			'title',
-			'excerpt',
-			'thumbnail',
-			'custom-fields'
 		],
 		'taxonomies'        => [
 			'category',
@@ -72,10 +70,11 @@ function salista_post_type() {
 		'label'             => __( 'salista', 'bsd' ),
 		'labels'            => $labels,
 		'supports'          => [
-			'title',
+			'editor',
+			'custom-fields',
 			'excerpt',
 			'thumbnail',
-			'custom-fields'
+			'title',
 		],
 		'taxonomies'        => [
 			'tag',
@@ -98,3 +97,15 @@ function salista_post_type() {
 }
 
 add_action( 'init', 'salista_post_type', 1 );
+
+/**
+ * Register custom query vars
+ *
+ * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/query_vars
+ */
+function bsd_query_vars( $vars ) {
+	$vars[] = 'loja';
+	$vars[] = 'category';
+	return $vars;
+}
+add_filter( 'query_vars', 'bsd_query_vars' );

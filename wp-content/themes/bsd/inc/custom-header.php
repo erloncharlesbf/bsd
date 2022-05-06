@@ -21,14 +21,14 @@ function bsd_custom_header_setup() {
 		'custom-header',
 		apply_filters(
 			'bsd_custom_header_args',
-			array(
+			[
 				'default-image'      => '',
 				'default-text-color' => '000000',
 				'width'              => 1000,
 				'height'             => 250,
 				'flex-height'        => true,
 				'wp-head-callback'   => 'bsd_header_style',
-			)
+			]
 		)
 	);
 }
@@ -53,7 +53,7 @@ if ( ! function_exists( 'bsd_header_style' ) ) :
 
 		// If we get this far, we have custom styles. Let's do this.
 		?>
-		<style type="text/css">
+		<style>
 		<?php
 		// Has the text been hidden?
 		if ( ! display_header_text() ) :

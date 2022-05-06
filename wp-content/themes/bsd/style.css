@@ -968,6 +968,44 @@ textarea {
 }
 
 /* Geral --------------------------------------------- */
+.container {
+    width: 100%;
+    padding: 20px 0;
+}
+
+#primary-menu {
+    position: absolute;
+    z-index: 5;
+    background-color: white;
+    padding: 20px;
+    line-height: 2em;
+    top: 0;
+}
+
+.menu-toggle {
+    display: flex;
+    position: relative;
+    z-index: 9;
+}
+
+.carousel-cell {
+    width: 100%; /* full width */
+    /*height: 300px; !* height of carousel *!*/
+    /*margin-right: 10px;*/
+}
+
+.flickity-page-dots {
+    bottom: 20px;
+}
+
+#salistas, #colophon {
+    background-color: #1e2025;
+}
+
+footer#colophon {
+    position: relative;
+    bottom: 0;
+}
 
 /* Mobile --------------------------------------------- */
 @media only screen and (max-width: 768px) {
@@ -987,7 +1025,18 @@ textarea {
     ". . .";
     }
 
+    .main-navigation ul {
+        display: none;
+    }
+
     .slideshow-mobile {
         display: none;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .container {
+        margin: 0 auto;
+        width: 1280px;
     }
 }
