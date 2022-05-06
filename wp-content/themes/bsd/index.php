@@ -42,12 +42,14 @@ get_header();
                         </a>
 					<?php
 					else: ?>
-                        <img src="<?php
+                        <img class="slideshow-desktop" src="<?php
 						echo $imageDesktop; ?>" alt="<?php
-						echo get_the_title() ?>">
+						echo get_the_title(); ?>">
+                        <img class="slideshow-mobile" src="<?php
+						echo $imageMobile; ?>" alt="<?php
+						echo get_the_title(); ?>">
 					<?php
 					endif; ?>
-
                 </li>
 			<?php
 			endwhile; ?>
