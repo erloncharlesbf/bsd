@@ -984,7 +984,7 @@ textarea {
 }
 
 #primary-menu {
-    position: relative;
+    position: absolute;
     z-index: 5;
     background-color: white;
     padding: 20px;
@@ -1028,7 +1028,7 @@ textarea {
 }
 
 footer#colophon {
-    position: relative;
+    position: absolute;
     bottom: 0;
 }
 
