@@ -1020,6 +1020,11 @@ textarea {
     display: none;
 }
 
+#primary-menu li > a:nth-child(1){
+    color: darkorange;
+    font-weight: bold;
+}
+
 .carousel-cell {
     width: 100%; /* full width */
     height: 400px; /* height of carousel */
