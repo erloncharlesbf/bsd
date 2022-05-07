@@ -73,7 +73,14 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 }
 
 function get_salista( $id ): WP_REST_Response {
-	$data = format_salista( get_post( $id ) );
+	$args = [ 'p' => $id, 'post_type' => 'salistas' ];
+	$loop = new WP_Query( $args );
+	$data = [];
+	while ( $loop->have_posts() ) :
+		$loop->the_post();
+		global $post;
+		$data = format_salista( $post );
+	endwhile;
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
