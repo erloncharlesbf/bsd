@@ -1,11 +1,6 @@
 <?php
 
 add_action( 'rest_api_init', function () {
-	register_rest_route( 'bsd/v1', '/slideshows/(?P<id>\d+)', [
-		'methods'  => 'GET',
-		'callback' => 'get_vehicle_by_id',
-	] );
-
 	register_rest_route( 'bsd/v1', '/slideshows', [
 		'methods'  => 'GET',
 		'callback' => 'get_all_slideshows',
@@ -15,29 +10,7 @@ add_action( 'rest_api_init', function () {
 			'active'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 		],
 	] );
-
-	register_rest_route( 'bsd/v1', '/slideshows/filters', [
-		'methods'  => 'GET',
-		'callback' => 'get_vehicle_filters',
-	] );
 } );
-
-/**
- * Exibe um slideshow pelo ID
- *
- * @param WP_REST_Request $request
- *
- * @return WP_REST_Response
- */
-function get_vehicle_by_id( WP_REST_Request $request ): WP_REST_Response {
-	$vehicle = get_post( $request->get_param( 'id' ) );
-	if ( $vehicle->post_status !== 'publish' ) {
-		return new WP_REST_Response( null, 404 );
-	}
-	$data = get_vehicle_response( $vehicle );
-
-	return new WP_REST_Response( compact( 'data' ) );
-}
 
 /**
  * Lista todos os slideshows
@@ -72,8 +45,9 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	$slideshows = new WP_Query( $args );
 
 	$items = [];
+
 	foreach ( $slideshows->get_posts() as $vehicle ) {
-		$items[] = get_vehicle_response( $vehicle );
+		$items[] = get_slideshow_response( $vehicle );
 	}
 
 	$data = [
@@ -86,28 +60,6 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	return new WP_REST_Response( compact( 'data' ) );
 }
 
-/**
- * Lista os filtros disponiveis para serem utilizados na listagem dos slideshows
- *
- * @param WP_REST_Request $request
- *
- * @return WP_REST_Response
- */
-function get_vehicle_filters( WP_REST_Request $request ): WP_REST_Response {
-	$data = [];
-
-	$categories = get_terms( [
-		'taxonomy'   => 'categories',
-		'hide_empty' => false,
-	] );
-
-	$data['categories'] = array_map(
-		static fn( $brand ) => [ 'id' => $brand->term_id, 'name' => $brand->name, ],
-		$categories
-	);
-
-	return new WP_REST_Response( compact( 'data' ) );
-}
 
 /**
  * Gera o JSON do slideshow
