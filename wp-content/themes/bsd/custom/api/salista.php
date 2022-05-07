@@ -5,9 +5,10 @@ add_action( 'rest_api_init', function () {
 		'methods'  => 'GET',
 		'callback' => 'get_all_salistas',
 		'args'     => [
-			'paged'    => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
-			'per_page' => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
-			'category' => [ 'validate_callback' => fn( $param, $request, $key ) => is_string( $param ) ],
+			'paged'      => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
+			'per_page'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
+			'category'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_string( $param ) ],
+			'first_char' => [ 'validate_callback' => fn( $param, $request, $key ) => is_string( $param ) ],
 		],
 	] );
 
@@ -35,10 +36,12 @@ add_action( 'rest_api_init', function () {
  * @return WP_REST_Response
  */
 function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
-	$paged    = $request->get_param( 'paged' ) ?: 1;
-	$per_page = $request->get_param( 'per_page' ) ?: - 1;
-	$category = $request->get_param( 'category' );
-	$search   = $request->get_param( 'search' );
+	global $wpdb;
+	$paged      = $request->get_param( 'paged' ) ?: 1;
+	$per_page   = $request->get_param( 'per_page' ) ?: - 1;
+	$category   = $request->get_param( 'category' );
+	$search     = $request->get_param( 'search' );
+	$first_char = $request->get_param( 'first_char' );
 
 	$args = [
 		'posts_per_page' => $per_page,
@@ -48,6 +51,17 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 		'post_status'    => [ 'publish' ],
 		'order'          => 'ASC',
 	];
+
+	if ( $first_char ) {
+		$postIds          = $wpdb->get_col( $wpdb->prepare( "
+	SELECT      ID
+	FROM        $wpdb->posts
+	WHERE       SUBSTR($wpdb->posts.post_title,1,1) = %s
+	AND 		$wpdb->posts.post_type = 'salistas'
+	ORDER BY    $wpdb->posts.post_title",
+			$first_char ) );
+		$args['post__in'] = $postIds;
+	}
 
 	if ( $search ) {
 		$args['s'] = $search;
