@@ -994,9 +994,9 @@ textarea {
     background-color: white;
     padding: 20px;
     line-height: 2em;
-    top: 25px;
+    top: 0;
     box-shadow: black 0 10px 10px;
-    right: 0;
+    right: 50%;
 }
 
 .menu-toggle {
