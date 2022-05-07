@@ -70,7 +70,7 @@ function salista_post_type() {
 		'label'             => __( 'salista', 'bsd' ),
 		'labels'            => $labels,
 		'supports'          => [
-			'editor',
+//			'editor',
 			'custom-fields',
 			'excerpt',
 			'thumbnail',
