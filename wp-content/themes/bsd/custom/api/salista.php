@@ -52,7 +52,7 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 		'order'          => 'ASC',
 	];
 
-	if ( $first_char ) {
+	if ( $first_char !== null ) {
 		$postIds          = $wpdb->get_col( $wpdb->prepare( "
 	SELECT      ID
 	FROM        $wpdb->posts
