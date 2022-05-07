@@ -983,6 +983,11 @@ textarea {
     ". . .";
 }
 
+.menu-categorias-container {
+    position: relative;
+    left: 0;
+}
+
 #primary-menu {
     position: absolute;
     z-index: 5;
@@ -991,6 +996,7 @@ textarea {
     line-height: 2em;
     top: 25px;
     box-shadow: black 0 10px 10px;
+    right: 0;
 }
 
 .menu-toggle {
@@ -1015,7 +1021,7 @@ textarea {
 
 .carousel-cell {
     width: 100%; /* full width */
-    /*height: 300px; !* height of carousel *!*/
+    height: 400px; /* height of carousel */
     /*margin-right: 10px;*/
 }
 
