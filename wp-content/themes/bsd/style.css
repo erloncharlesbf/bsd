@@ -1020,7 +1020,7 @@ textarea {
     display: none;
 }
 
-#primary-menu:nth-child(1)  a {
+#primary-menu li:nth-child(1) a {
     color: darkorange;
     font-weight: bold;
 }
