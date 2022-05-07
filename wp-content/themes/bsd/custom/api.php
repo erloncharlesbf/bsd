@@ -10,9 +10,9 @@ add_action( 'rest_api_init', function () {
 			'active'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 		],
 	] );
-	register_rest_route( 'bsd/v1', '/slideshows/filters', [
+	register_rest_route( 'bsd/v1', '/slideshows/categories', [
 		'methods'  => 'GET',
-		'callback' => 'get_slideshow_filters',
+		'callback' => 'get_slideshow_categories',
 	] );
 } );
 
@@ -71,17 +71,12 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
  *
  * @return WP_REST_Response
  */
-function get_slideshow_filters( WP_REST_Request $request ): WP_REST_Response {
+function get_slideshow_categories( WP_REST_Request $request ): WP_REST_Response {
 	$data = [];
-
-	$categories = get_terms( [
-		'taxonomy'   => 'categories',
-		'hide_empty' => false,
-	] );
 
 	$data['categories'] = array_map(
 		static fn( $brand ) => [ 'id' => $brand->term_id, 'name' => $brand->name, ],
-		$categories
+		get_terms( [ 'taxonomy' => 'category', 'hide_empty' => false, ] )
 	);
 
 	return new WP_REST_Response( compact( 'data' ) );
@@ -100,7 +95,7 @@ function format_slideshow( $slideshow ): array {
 		'new_window'     => get_field( 'abrir_em_nova_aba', $slideshow->ID ),
 		'imagem_desktop' => get_field( 'imagem_desktop', $slideshow->ID ),
 		'imagem_mobile'  => get_field( 'imagem_mobile', $slideshow->ID ),
-		'ordem'          => (int)get_field( 'order', $slideshow->ID ),
-		'status'         => (bool)get_field( 'status', $slideshow->ID ),
+		'ordem'          => (int) get_field( 'order', $slideshow->ID ),
+		'status'         => (bool) get_field( 'status', $slideshow->ID ),
 	];
 }
