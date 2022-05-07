@@ -119,7 +119,7 @@ function format_salista( $salista ): array {
 		'name'                     => $salista->post_title,
 		'sala'                     => get_field( 'andar', $salista->ID ),
 		'site'                     => get_field( 'site', $salista->ID ),
-		'taxonomies'               => get_post_taxonomies( $salista->ID ),
+		'torre'                    => get_the_terms( $salista->ID, 'torre_salista' ),
 		'telefone_de_contato'      => get_field( 'telefone_de_contato', $salista->ID ),
 		'thumbnail'                => get_the_post_thumbnail_url( $salista->ID, 'full' ),
 		'whatsapp'                 => get_field( 'whatsapp', $salista->ID ),
