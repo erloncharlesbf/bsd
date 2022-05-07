@@ -72,12 +72,20 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
  * @return WP_REST_Response
  */
 function get_slideshow_categories( WP_REST_Request $request ): WP_REST_Response {
-	$data = [];
+	$paged    = $request->get_param( 'paged' ) ?: 1;
+	$per_page = $request->get_param( 'per_page' ) ?: - 1;
 
-	$data['categories'] = array_map(
+	$items = array_map(
 		static fn( $brand ) => [ 'id' => $brand->term_id, 'name' => $brand->name, ],
 		get_terms( [ 'taxonomy' => 'category', 'hide_empty' => false, ] )
 	);
+
+	$data = [
+		'items'        => $items,
+		'per_page'     => (int) $per_page,
+		'current_page' => (int) $paged,
+		'total'        => count( $items ),
+	];
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
