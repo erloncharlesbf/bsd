@@ -981,7 +981,7 @@ textarea {
     padding: 20px;
     line-height: 2em;
     top: 25px;
-    box-shadow: black 10px 0 10px;
+    box-shadow: black 0 10px 10px -10px;
 }
 
 .menu-toggle {
