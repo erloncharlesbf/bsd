@@ -10,6 +10,10 @@ add_action( 'rest_api_init', function () {
 			'active'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 		],
 	] );
+	register_rest_route( 'bsd/v1', '/salistas/(?P<id>\d+)', array(
+		'methods'  => 'GET',
+		'callback' => 'get_salista',
+	) );
 	register_rest_route( 'bsd/v1', '/salistas/categories', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista_categories',
@@ -64,6 +68,12 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 		'current_page' => (int) $paged,
 		'total'        => $salistas->post_count,
 	];
+
+	return new WP_REST_Response( compact( 'data' ) );
+}
+
+function get_salista( $id ): WP_REST_Response {
+	$data = format_salista( get_post( $id ) );
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
