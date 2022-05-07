@@ -996,14 +996,17 @@ textarea {
 .menu-toggle {
     color: #818181;
     display: flex;
-    position: relative;
+    position: absolute;
     z-index: 9;
     border: none;
     background: transparent;
+    right: 0;
 }
 
 .menu-toggle .dashicons {
     display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .menu-toggle .noicon {
