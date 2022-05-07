@@ -26,28 +26,14 @@ add_action( 'rest_api_init', function () {
 function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	$paged    = $request->get_param( 'paged' ) ?: 1;
 	$per_page = $request->get_param( 'per_page' ) ?: - 1;
-	$active   = $request->get_param( 'active' ) ?: true;
 
-	$filters = [];
 	$args    = [
 		'post_type'      => 'slideshows',
 		'posts_per_page' => $per_page,
 		'post_status'    => 'publish',
 		'paged'          => $paged,
-		'meta_key'       => 'order',
-		'orderby'        => 'meta_value',
 	];
-	if ( null !== $active ) {
-		$filters[] = [
-			'key'     => 'active',
-			'value'   => $active,
-			'compare' => '=',
-		];
-	}
 
-	if ( ! empty( $filters ) ) {
-		$args['meta_query'] = $filters;
-	}
 	$slideshows = new WP_Query( $args );
 
 	$items = [];
