@@ -969,6 +969,7 @@ textarea {
 
 /* Geral --------------------------------------------- */
 .container {
+    color: #818181;
     width: 100%;
     padding: 20px 0;
 }
@@ -979,13 +980,25 @@ textarea {
     background-color: white;
     padding: 20px;
     line-height: 2em;
-    top: 0;
+    top: 20px;
+    box-shadow: black 0 0 10px;
 }
 
 .menu-toggle {
+    color: #818181;
     display: flex;
     position: relative;
     z-index: 9;
+    border: none;
+    background: transparent;
+}
+
+.menu-toggle i {
+    display: block;
+}
+
+.menu-toggle span {
+    display: block;
 }
 
 .carousel-cell {
@@ -1031,6 +1044,14 @@ footer#colophon {
 
     .slideshow-mobile {
         display: none;
+    }
+
+    .menu-toggle i {
+        display: none;
+    }
+
+    .menu-toggle span {
+        display: block;
     }
 }
 
