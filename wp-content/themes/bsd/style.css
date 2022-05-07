@@ -996,7 +996,8 @@ textarea {
     line-height: 2em;
     top: 0;
     box-shadow: black 0 10px 10px;
-    right: 50%;
+    right: 0px;
+    min-width: 250px;
 }
 
 .menu-toggle {
@@ -1062,6 +1063,17 @@ footer#colophon {
 
     .menu-toggle .noicon {
         display: block;
+    }
+
+    #primary-menu {
+        position: absolute;
+        z-index: 5;
+        background-color: white;
+        padding: 20px;
+        line-height: 2em;
+        top: 0;
+        box-shadow: black 0 10px 10px;
+        right: 50%;
     }
 }
 
