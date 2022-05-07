@@ -1002,12 +1002,12 @@ textarea {
     background: transparent;
 }
 
-.menu-toggle i {
+.menu-toggle .dashicons {
     display: block;
 }
 
-.menu-toggle span {
-    display: block;
+.menu-toggle .noicon {
+    display: none;
 }
 
 .carousel-cell {
@@ -1047,11 +1047,11 @@ footer#colophon {
         display: none;
     }
 
-    .menu-toggle i {
+    .menu-toggle .dashicons {
         display: none;
     }
 
-    .menu-toggle span {
+    .menu-toggle .noicon {
         display: block;
     }
 }
