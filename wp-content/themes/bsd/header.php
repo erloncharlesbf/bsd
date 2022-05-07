@@ -32,7 +32,7 @@
             <div class="site-branding">
                 <div><?php the_custom_logo(); ?></div>
             </div><!-- .site-branding -->
-            <h2><span class="dashicons dashicons-smiley"></span> A Cheerful Headline</h2>
+
             <nav id="site-navigation" class="main-navigation">
                 <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
                     <span class="noicon">Categorias</span>
