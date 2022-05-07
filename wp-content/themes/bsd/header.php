@@ -40,7 +40,7 @@
                         <img width="30" height="30" src="<?php echo get_theme_file_uri()?>/image/menu.svg" alt="Menu" />
                     </span>
                 </button>
-                <?php wp_nav_menu( [ 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu', ] ); ?>
+                <?php wp_nav_menu( [ 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'before'=>'teste ' ] ); ?>
             </nav><!-- #site-navigation -->
         </div>
     </header><!-- #masthead -->
