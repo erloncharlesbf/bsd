@@ -100,7 +100,7 @@ function format_slideshow( $slideshow ): array {
 		'new_window'     => get_field( 'abrir_em_nova_aba', $slideshow->ID ),
 		'imagem_desktop' => get_field( 'imagem_desktop', $slideshow->ID ),
 		'imagem_mobile'  => get_field( 'imagem_mobile', $slideshow->ID ),
-		'ordem'          => get_field( 'order', $slideshow->ID ),
-		'status'         => get_field( 'status', $slideshow->ID ),
+		'ordem'          => (int)get_field( 'order', $slideshow->ID ),
+		'status'         => (bool)get_field( 'status', $slideshow->ID ),
 	];
 }
