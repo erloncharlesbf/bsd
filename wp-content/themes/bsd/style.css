@@ -974,8 +974,17 @@ textarea {
     padding: 20px 0;
 }
 
+#masthead {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 0;
+    grid-template-areas:
+    ". . .";
+}
+
 #primary-menu {
-    position: absolute;
+    position: relative;
     z-index: 5;
     background-color: white;
     padding: 20px;
@@ -1029,14 +1038,6 @@ footer#colophon {
 
 /* Desktop --------------------------------------------- */
 @media only screen and (min-width: 768px) {
-    #masthead {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr;
-        gap: 0 0;
-        grid-template-areas:
-    ". . .";
-    }
 
     .main-navigation ul {
         display: none;
