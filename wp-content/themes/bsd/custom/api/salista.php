@@ -76,12 +76,23 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
  * @return WP_REST_Response
  */
 function get_salista_categories( WP_REST_Request $request ): WP_REST_Response {
-	$data = [];
-
-	$data['categories'] = array_map(
-		static fn( $brand ) => [ 'id' => $brand->term_id, 'name' => $brand->name, ],
+	$paged    = $request->get_param( 'paged' ) ?: 1;
+	$per_page = $request->get_param( 'per_page' ) ?: - 1;
+	$items = array_map(
+		static fn( $category ) => [
+			'id'   => $category->term_id,
+			'name' => $category->name,
+			'icon' => get_field( 'icone', $category )
+		],
 		get_terms( [ 'taxonomy' => 'salista_categories', 'hide_empty' => false, ] )
 	);
+
+	$data = [
+		'items'        => $items,
+		'per_page'     => (int) $per_page,
+		'current_page' => (int) $paged,
+		'total'        => count($items),
+	];
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
