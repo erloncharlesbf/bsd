@@ -46,8 +46,8 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 
 	$items = [];
 
-	foreach ( $slideshows->get_posts() as $vehicle ) {
-		$items[] = get_slideshow_response( $vehicle );
+	foreach ( $slideshows->get_posts() as $slideshow ) {
+		$items[] = $slideshow->to_array() + get_fields( $slideshow->ID );
 	}
 
 	$data = [
@@ -58,32 +58,4 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	];
 
 	return new WP_REST_Response( compact( 'data' ) );
-}
-
-
-/**
- * Gera o JSON do slideshow
- *
- * @param $slideshow
- *
- * @return array
- */
-function get_slideshow_response( $slideshow ): array {
-	return [
-		'id'                       => $slideshow->ID,
-		'post_title'               => $slideshow->post_title,
-		'post_content'             => $slideshow->post_content,
-		'post_date'                => $slideshow->post_date,
-		'andar'                    => get_field( 'andar', $slideshow->ID ),
-		'sala'                     => get_field( 'sala', $slideshow->ID ),
-		'descricao'                => get_field( 'descricao', $slideshow->ID ),
-		'thumbnail'                => $slideshow->post_thumbnail,
-		'horario_de_funcionamento' => get_field( 'horario_de_funcionamento', $slideshow->ID ),
-		'telefone_de_contato'      => get_field( 'telefone_de_contato', $slideshow->ID ),
-		'e-mail'                   => get_field( 'e-mail', $slideshow->ID ),
-		'instagram'                => get_field( 'instagram', $slideshow->ID ),
-		'facebook'                 => get_field( 'facebook', $slideshow->ID ),
-		'linkedin'                 => get_field( 'linkedin', $slideshow->ID ),
-		'youtube'                  => get_field( 'youtube', $slideshow->ID )
-	];
 }
