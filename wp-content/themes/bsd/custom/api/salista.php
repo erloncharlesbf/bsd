@@ -8,6 +8,7 @@ add_action( 'rest_api_init', function () {
 			'paged'    => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 			'per_page' => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 			'active'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
+			'category'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_string( $param ) ],
 		],
 	] );
 
@@ -37,14 +38,16 @@ add_action( 'rest_api_init', function () {
 function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 	$paged    = $request->get_param( 'paged' ) ?: 1;
 	$per_page = $request->get_param( 'per_page' ) ?: - 1;
-	$active   = $request->get_param( 'active' );
+	$active   = $request->get_param( 'active' ) ?: true;
+	$category = $request->get_param( 'category' );
 
 	$filters = [];
 	$args    = [
 		'post_type'      => 'salistas',
 		'posts_per_page' => $per_page,
 		'post_status'    => 'publish',
-		'paged'          => $paged
+		'paged'          => $paged,
+		'orderby'        => 'title',
 	];
 	if ( $active !== null ) {
 		$filters[] = [
@@ -52,6 +55,9 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 			'value'   => $active,
 			'compare' => '=',
 		];
+	}
+	if ( $category ) {
+		$filters['category_name'] = [ $category ];
 	}
 
 	if ( ! empty( $filters ) ) {
@@ -76,7 +82,7 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 }
 
 function get_salista( $id ): WP_REST_Response {
-	$args = [ 'p' => $id, 'post_type' => 'salistas' ];
+	$args     = [ 'p' => $id, 'post_type' => 'salistas' ];
 	$salistas = new WP_Query( $args );
 
 	$data = [];
@@ -155,11 +161,12 @@ function format_salista( $salista ): array {
 		'instagram'                => get_field( 'instagram', $salista->ID ),
 		'legend'                   => $salista->post_excerpt,
 		'linkedin'                 => get_field( 'linkedin', $salista->ID ),
-		'name'                     => $salista->post_title,
+		'name'                     => $salista->post_name,
 		'sala'                     => get_field( 'andar', $salista->ID ),
 		'site'                     => get_field( 'site', $salista->ID ),
 		'torre'                    => get_the_terms( $salista->ID, 'torre_salista' ),
 		'telefone_de_contato'      => get_field( 'telefone_de_contato', $salista->ID ),
+		'title'                     => $salista->post_title,
 		'thumbnail'                => get_the_post_thumbnail_url( $salista->ID, 'full' ),
 		'whatsapp'                 => get_field( 'whatsapp', $salista->ID ),
 		'youtube'                  => get_field( 'youtube', $salista->ID ),
