@@ -10,14 +10,17 @@ add_action( 'rest_api_init', function () {
 			'active'   => [ 'validate_callback' => fn( $param, $request, $key ) => is_numeric( $param ) ],
 		],
 	] );
+
 	register_rest_route( 'bsd/v1', '/salistas/(?P<id>\d+)', array(
 		'methods'  => 'GET',
 		'callback' => 'get_salista',
 	) );
+
 	register_rest_route( 'bsd/v1', '/salistas/categories', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista_categories',
 	] );
+
 	register_rest_route( 'bsd/v1', '/salistas/torres', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista_torres',
@@ -74,13 +77,13 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 
 function get_salista( $id ): WP_REST_Response {
 	$args = [ 'p' => $id, 'post_type' => 'salistas' ];
-	$loop = new WP_Query( $args );
+	$salistas = new WP_Query( $args );
+
 	$data = [];
-	while ( $loop->have_posts() ) :
-		$loop->the_post();
-		global $post;
-		$data = format_salista( $post );
-	endwhile;
+
+	foreach ( $salistas->get_posts() as $salista ) {
+		$data = format_salista( $salista );
+	}
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
