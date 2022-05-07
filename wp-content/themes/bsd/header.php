@@ -36,10 +36,9 @@
             <nav id="site-navigation" class="main-navigation">
                 <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
                     <span class="noicon">Categorias</span>
-                    <span class="dashicons"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                 width="24" height="24"
-                                                 viewBox="0 0 172 172"
-                                                 style=" fill:#000000;"><g transform=""><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="#ffffff"></path><g id="original-icon" fill="#000000"><path d="M14.33333,35.83333v14.33333h143.33333v-14.33333zM14.33333,78.83333v14.33333h143.33333v-14.33333zM14.33333,121.83333v14.33333h143.33333v-14.33333z"></path></g><path d="" fill="none"></path></g></g></svg></span>
+                    <span class="dashicons">
+                        <img width="30" height="30" src="<?php echo get_theme_file_uri()?>/image/menu.svg" alt="Menu" />
+                    </span>
                 </button>
                 <?php wp_nav_menu( [ 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu', ] ); ?>
             </nav><!-- #site-navigation -->
