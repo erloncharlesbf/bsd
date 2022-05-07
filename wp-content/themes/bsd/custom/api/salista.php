@@ -52,14 +52,22 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 		'order'          => 'ASC',
 	];
 
-	if ( $first_char !== null ) {
-		$postIds          = $wpdb->get_col( $wpdb->prepare( "
+	if ( $first_char ) {
+		$postIds = $wpdb->get_col( $wpdb->prepare( "
 	SELECT      ID
 	FROM        $wpdb->posts
-	WHERE       SUBSTR($wpdb->posts.post_title,1,1) = %s
+	WHERE       $wpdb->posts.post_title like %s
 	AND 		$wpdb->posts.post_type = 'salistas'
 	ORDER BY    $wpdb->posts.post_title",
-			$first_char ) );
+			"$first_char%" ) );
+		if ( ! $postIds ) {
+			return new WP_REST_Response( [
+				'items'        => [],
+				'per_page'     => (int) $per_page,
+				'current_page' => (int) $paged,
+				'total'        => 0,
+			] );
+		}
 		$args['post__in'] = $postIds;
 	}
 
