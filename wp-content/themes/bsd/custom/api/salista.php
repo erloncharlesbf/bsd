@@ -102,11 +102,16 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 	return new WP_REST_Response( compact( 'data' ) );
 }
 
-function get_salista( WP_REST_Request $request ): WP_REST_Response {
-	$id   = (int) $request->get_url_params()['id'];
-	$args = ['p' => $id, 'post_type' => 'salistas', 'post_status' => 'publish'];
-	$loop = new WP_Query($args);
-	$data = format_salista( $loop->get_posts()[0] );
+function get_salista( WP_REST_Request $request ) {
+	$id      = (int) $request->get_url_params()['id'];
+	$args    = [ 'p' => $id, 'post_type' => 'salistas', 'post_status' => 'publish' ];
+	$loop    = new WP_Query( $args );
+	$salista = $loop->get_posts()[0];
+	$data    = format_salista( $salista );
+
+	if ( $salista === null ) {
+		( new WP_REST_Response() )->set_status( 404 );
+	}
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
