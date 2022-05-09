@@ -107,11 +107,12 @@ function get_salista( WP_REST_Request $request ) {
 	$args    = [ 'p' => $id, 'post_type' => 'salistas', 'post_status' => 'publish' ];
 	$loop    = new WP_Query( $args );
 	$salista = $loop->get_posts()[0];
-	$data    = format_salista( $salista );
 
 	if ( $salista === null ) {
-		( new WP_REST_Response() )->set_status( 404 );
+		return new WP_REST_Response( null, 404 );
 	}
+
+	$data = format_salista( $salista );
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
