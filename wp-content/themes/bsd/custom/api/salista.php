@@ -12,10 +12,10 @@ add_action( 'rest_api_init', function () {
 		],
 	] );
 
-	register_rest_route( 'bsd/v1', '/salistas/(?P<id>\d+)', array(
+	register_rest_route( 'bsd/v1', '/salistas/(?P<id>\d+)', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista',
-	) );
+	] );
 
 	register_rest_route( 'bsd/v1', '/salistas/categories', [
 		'methods'  => 'GET',
@@ -102,15 +102,9 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 	return new WP_REST_Response( compact( 'data' ) );
 }
 
-function get_salista( $id ): WP_REST_Response {
-	$args     = [ 'p' => $id, 'post_type' => 'salistas' ];
-	$salistas = new WP_Query( $args );
-
-	$data = [];
-
-	foreach ( $salistas->get_posts() as $salista ) {
-		$data = format_salista( $salista );
-	}
+function get_salista( WP_REST_Request $request ): WP_REST_Response {
+	$id   = (int) $request->get_url_params()['id'];
+	$data = format_salista( get_post( $id ) );
 
 	return new WP_REST_Response( compact( 'data' ) );
 }
