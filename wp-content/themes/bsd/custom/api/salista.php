@@ -109,7 +109,7 @@ function get_salista( WP_REST_Request $request ) {
 	$salista = $loop->get_posts()[0];
 
 	if ( $salista === null ) {
-		return new WP_REST_Response( null, 404 );
+		return new WP_REST_Response( [ 'error' => 'Salista Não encontrado' ], 404 );
 	}
 
 	$data = format_salista( $salista );
