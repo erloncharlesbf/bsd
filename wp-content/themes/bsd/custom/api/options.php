@@ -15,9 +15,8 @@ add_action( 'rest_api_init', function () {
  * @return WP_REST_Response
  */
 function get_options( WP_REST_Request $request ): WP_REST_Response {
-	$options = get_option( 'bsd_options' );
 
-	$data = [
+	return new WP_REST_Response( [
 		'name'        => get_option( 'blogname' ),
 		'description' => get_option( 'blogdescription' ),
 		'facebook'    => get_option( 'facebook_option' ),
@@ -27,7 +26,5 @@ function get_options( WP_REST_Request $request ): WP_REST_Response {
 		'twitter'     => get_option( 'twitter_option' ),
 		'youtube'     => get_option( 'youtube_option' ),
 		'analytics'   => get_option( 'analytics_option' )
-	];
-
-	return new WP_REST_Response( compact( 'data' ) );
+	] );
 }
