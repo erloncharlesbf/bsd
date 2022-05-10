@@ -175,6 +175,7 @@ require get_template_directory() . '/custom/helper.php';
 require get_template_directory() . '/custom/ajax.php';
 require get_template_directory() . '/custom/api.php';
 require get_template_directory() . '/custom/sidebars.php';
+require get_template_directory() . '/custom/menu.php';
 
 /**
  * Load Jetpack compatibility file.
