@@ -31,18 +31,6 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 		'post_type'      => 'slideshows',
 		'posts_per_page' => $per_page,
 		'post_status'    => 'publish',
-		'meta_query'     => [
-			'show_post_query'         => [
-				'key'   => 'SHOW_POST',
-				'value' => '1'
-			],
-			'Mordem__order_by' => [
-				'key'     => 'ordem',
-				'type'    => 'NUMERIC',
-				'compare' => 'NUMERIC',
-			]
-		],
-		'orderby'        => [ 'ordem__order_by' => 'ASC' ],
 		'paged'          => $paged,
 	];
 
