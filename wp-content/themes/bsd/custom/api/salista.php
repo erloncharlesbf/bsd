@@ -102,7 +102,7 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 	return new WP_REST_Response( compact( 'data' ) );
 }
 
-function get_salista( WP_REST_Request $request ) {
+function get_salista( WP_REST_Request $request ): WP_REST_Response {
 	$id      = (int) $request->get_url_params()['id'];
 	$args    = [ 'p' => $id, 'post_type' => 'salistas', 'post_status' => 'publish' ];
 	$loop    = new WP_Query( $args );
@@ -183,14 +183,14 @@ function format_salista( $salista ): array {
 		'instagram'                => get_field( 'instagram', $salista->ID ),
 		'linkedin'                 => get_field( 'linkedin', $salista->ID ),
 		'logo'                     => get_field( 'logo', $salista->ID ),
-		'name'                     => $salista->post_name,
+		'slug'                     => $salista->post_name,
 		'sala'                     => get_field( 'andar', $salista->ID ),
 		'site'                     => get_field( 'site', $salista->ID ),
 		'imagem_desktop'           => get_field( 'imagem_desktop', $salista->ID ),
 		'imagem_mobile'            => get_field( 'imagem_mobile', $salista->ID ),
 		'telefone_de_contato'      => get_field( 'telefone_de_contato', $salista->ID ),
 		'thumbnail'                => get_the_post_thumbnail_url( $salista->ID, 'full' ),
-		'title'                    => $salista->post_title,
+		'nome'                    => $salista->post_title,
 		'torre'                    => get_the_terms( $salista->ID, 'torre_salista' )[0]->name,
 		'whatsapp'                 => get_field( 'whatsapp', $salista->ID ),
 		'youtube'                  => get_field( 'youtube', $salista->ID ),
