@@ -191,7 +191,7 @@ function format_salista( $salista ): array {
 		'telefone_de_contato'      => get_field( 'telefone_de_contato', $salista->ID ),
 		'thumbnail'                => get_the_post_thumbnail_url( $salista->ID, 'full' ),
 		'title'                    => $salista->post_title,
-		'torre'                    => get_the_terms( $salista->ID, 'torre_salista' ),
+		'torre'                    => get_the_terms( $salista->ID, 'torre_salista' )[0]->name,
 		'whatsapp'                 => get_field( 'whatsapp', $salista->ID ),
 		'youtube'                  => get_field( 'youtube', $salista->ID ),
 	];
