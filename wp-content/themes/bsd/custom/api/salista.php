@@ -188,7 +188,11 @@ function format_salista( $salista ): array {
 		'name'                     => $salista->post_name,
 		'sala'                     => get_field( 'andar', $salista->ID ),
 		'site'                     => get_field( 'site', $salista->ID ),
-		'banner'                   => get_field( 'banner', $salista->ID ),
+		'banner'                   => get_field( 'banner', $salista->ID ) ? [
+			'thumbnail' => get_field( 'banner', $salista->ID )['sizes']['thumbnail'],
+			'medium'    => get_field( 'banner', $salista->ID )['sizes']['medium'],
+			'large'     => get_field( 'banner', $salista->ID )['sizes']['large'],
+		] : null,
 		'telefone_de_contato'      => get_field( 'telefone_de_contato', $salista->ID ),
 		'thumbnail'                => get_the_post_thumbnail_url( $salista->ID, 'full' ),
 		'title'                    => $salista->post_title,
