@@ -97,7 +97,7 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 		'per_page'     => (int) $per_page,
 		'current_page' => (int) $paged,
 		'headers'      => [
-			'first_chars' => [ array_values( array_unique( array_map( fn( $item ) => $item['nome'][0], $items ) ) )[0] ],
+			'first_chars' => array_values( array_unique( array_map( fn( $item ) => $item['nome'][0], $items ) ) ),
 		],
 		'total'        => $salistas->post_count,
 	];
