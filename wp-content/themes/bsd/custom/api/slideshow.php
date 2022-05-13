@@ -27,12 +27,12 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	$paged    = $request->get_param( 'paged' ) ?: 1;
 	$per_page = $request->get_param( 'per_page' ) ?: - 1;
 
-	$args    = [
+	$args = [
 		'post_type'      => 'slideshows',
 		'posts_per_page' => $per_page,
 		'post_status'    => 'publish',
-		'meta_key'			=> 'order',
-		'orderby'			=> 'meta_value',
+		'meta_key'       => 'ordem',
+		'orderby'        => 'meta_value',
 		'paged'          => $paged,
 	];
 
@@ -95,7 +95,7 @@ function format_slideshow( $slideshow ): array {
 		'new_window'     => get_field( 'abrir_em_nova_aba', $slideshow->ID ),
 		'ordem'          => (int) get_field( 'order', $slideshow->ID ),
 		'status'         => (bool) get_field( 'status', $slideshow->ID ),
-		'title'           => $slideshow->post_title,
+		'title'          => $slideshow->post_title,
 		'thumbnail'      => get_the_post_thumbnail_url( $slideshow->ID, 'full' ),
 	];
 }
