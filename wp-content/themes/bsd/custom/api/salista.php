@@ -176,13 +176,11 @@ function format_salista( $salista ): array {
 	return [
 		'andar'                    => get_field( 'andar', $salista->ID ),
 		'content'                  => $salista->post_content,
-		'descricao'                => get_field( 'descricao', $salista->ID ),
 		'e-mail'                   => get_field( 'e-mail', $salista->ID ),
 		'facebook'                 => get_field( 'facebook', $salista->ID ),
 		'horario_de_funcionamento' => get_field( 'horario_de_funcionamento', $salista->ID ),
 		'id'                       => $salista->ID,
 		'instagram'                => get_field( 'instagram', $salista->ID ),
-		'legend'                   => $salista->post_excerpt,
 		'linkedin'                 => get_field( 'linkedin', $salista->ID ),
 		'logo'                     => get_field( 'logo', $salista->ID ),
 		'name'                     => $salista->post_name,

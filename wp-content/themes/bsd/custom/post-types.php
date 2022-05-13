@@ -1,6 +1,6 @@
 <?php
 
-function slideshow_post_type() {
+function slideshow_post_type(): void {
 	$labels = [
 		'menu_name'          => esc_html__( 'Slideshows', 'bsd' ),
 		'name_admin_bar'     => esc_html__( 'Slideshow', 'bsd' ),
@@ -47,7 +47,7 @@ function slideshow_post_type() {
 
 add_action( 'init', 'slideshow_post_type', 0 );
 
-function salista_post_type() {
+function salista_post_type(): void {
 	$labels = [
 		'menu_name'          => esc_html__( 'Salistas', 'bsd' ),
 		'name_admin_bar'     => esc_html__( 'Salista', 'bsd' ),
@@ -72,8 +72,6 @@ function salista_post_type() {
 		'supports'          => [
 			'editor',
 			'custom-fields',
-			'excerpt',
-			'thumbnail',
 			'title',
 		],
 		'taxonomies'        => [
