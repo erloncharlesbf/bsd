@@ -31,6 +31,8 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 		'post_type'      => 'slideshows',
 		'posts_per_page' => $per_page,
 		'post_status'    => 'publish',
+		'meta_key'			=> 'order',
+		'orderby'			=> 'meta_value',
 		'paged'          => $paged,
 	];
 
