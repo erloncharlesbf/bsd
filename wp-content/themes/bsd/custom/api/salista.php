@@ -17,7 +17,7 @@ add_action( 'rest_api_init', function () {
 		'callback' => 'get_salista',
 	] );
 
-	register_rest_route( 'bsd/v1', '/salistas/categories', [
+	register_rest_route( 'bsd/v1', '/salistas-categories', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista_categories',
 	] );
