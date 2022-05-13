@@ -12,7 +12,7 @@ add_action( 'rest_api_init', function () {
 		],
 	] );
 
-	register_rest_route( 'bsd/v1', '/salistas/(?P<id>\d+)', [
+	register_rest_route( 'bsd/v1', '/salistas/(?P<slug>\S+)', [
 		'methods'  => 'GET',
 		'callback' => 'get_salista',
 	] );
@@ -103,11 +103,7 @@ function get_all_salistas( WP_REST_Request $request ): WP_REST_Response {
 }
 
 function get_salista( WP_REST_Request $request ): WP_REST_Response {
-	$id      = (int) $request->get_url_params()['id'];
-	$args    = [ 'p' => $id, 'post_type' => 'salistas', 'post_status' => 'publish' ];
-	$loop    = new WP_Query( $args );
-	$salista = $loop->get_posts()[0];
-
+	$salista = get_page_by_path( $request->get_url_params()['slug'], OBJECT, 'salistas' );
 	if ( $salista === null ) {
 		return new WP_REST_Response( [ 'error' => 'Salista Não encontrado' ], 404 );
 	}
@@ -176,7 +172,7 @@ function format_salista( $salista ): array {
 	return [
 		'andar'                    => get_field( 'andar', $salista->ID ),
 		'content'                  => $salista->post_content,
-		'e-mail'                   => get_field( 'e-mail', $salista->ID ),
+		'email'                   => get_field( 'e-mail', $salista->ID ),
 		'facebook'                 => get_field( 'facebook', $salista->ID ),
 		'horario_de_funcionamento' => get_field( 'horario_de_funcionamento', $salista->ID ),
 		'id'                       => $salista->ID,
