@@ -32,9 +32,12 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 	$slideshows = new WP_Query( $args );
 
 	$items = array_map( static fn( WP_Post $slideshow ) => format_slideshow( $slideshow ), $slideshows->get_posts() );
+	function sortByOrder( $a, $b ) {
+		return $a['order'] - $b['order'];
+	}
 
 	$data = [
-		'items' => usort( $items, static fn( $a, $b ) => $a['order'] <=> $b['order'] ),
+		'items' => usort( $items, 'sortByOrder' ),
 		'total' => $slideshows->post_count,
 	];
 
