@@ -36,14 +36,10 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 
 	$slideshows = new WP_Query( $args );
 
-	$items = [];
-
-	foreach ( $slideshows->get_posts() as $slideshow ) {
-		$items[] = format_slideshow( $slideshow );
-	}
+	$items = array_map( static fn( $slideshow ) => format_slideshow( $slideshow ), $slideshows->get_posts() );
 
 	$data = [
-		'items'        => fn() => $items,
+		'items'        => $items,
 		'per_page'     => (int) $per_page,
 		'current_page' => (int) $paged,
 		'total'        => $slideshows->post_count,
