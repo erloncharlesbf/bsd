@@ -38,7 +38,7 @@ function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
 
 	$items      = array_map( static fn( $slideshow ) => format_slideshow( $slideshow ), $slideshows->get_posts() );
 	$itemsOrdem = array_column( $items, 'ordem' );
-	array_multisort( $itemsOrdem, SORT_DESC, $items );
+	array_multisort( $itemsOrdem, SORT_ASC, $items );
 
 	$data = [
 		'items'        => $items,
