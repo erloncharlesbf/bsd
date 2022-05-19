@@ -24,29 +24,18 @@ add_action( 'rest_api_init', function () {
  * @return WP_REST_Response
  */
 function get_all_slideshows( WP_REST_Request $request ): WP_REST_Response {
-	$paged    = $request->get_param( 'paged' ) ?: 1;
-	$per_page = $request->get_param( 'per_page' ) ?: - 1;
-
 	$args = [
-		'post_type'      => 'slideshows',
-		'posts_per_page' => $per_page,
-		'post_status'    => 'publish',
-		'paged'          => $paged,
+		'post_type'   => 'slideshows',
+		'post_status' => 'publish',
 	];
 
 	$slideshows = new WP_Query( $args );
 
-	$items = [];
-
-	foreach ( $slideshows->get_posts() as $slideshow ) {
-		$items[] = format_slideshow( $slideshow );
-	}
+	$items = array_map( static fn( WP_Post $slideshow ) => format_slideshow( $slideshow ), $slideshows->get_posts() );
 
 	$data = [
-		'items'        => $items,
-		'per_page'     => (int) $per_page,
-		'current_page' => (int) $paged,
-		'total'        => $slideshows->post_count,
+		'items' => usort( $items, static fn( $a, $b ) => $a['order'] <=> $b['order'] ),
+		'total' => $slideshows->post_count,
 	];
 
 	return new WP_REST_Response( compact( 'data' ) );
